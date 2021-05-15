@@ -6,6 +6,9 @@ class Team(models.Model):
     team_logo = models.ImageField(upload_to='media/')
     club_state = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.team_name
+
 
 class Players(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)

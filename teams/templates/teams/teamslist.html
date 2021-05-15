@@ -1,3 +1,10 @@
+{% if error %}
+{{error}}
+{% endif %}
+
 {% for team in teams %}
-{{team.1}}<br>
+<a href=""> {{team.1}}</a><br>
 {% endfor%}
+<br>
+<br>
+<a href="/teams/add_player/">Add players</a>
