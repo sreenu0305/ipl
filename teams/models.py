@@ -17,7 +17,11 @@ class Players(models.Model):
     player_image = models.ImageField(upload_to='media1/')
     jersey_number = models.IntegerField(null=False,blank=False)
     player_country = models.CharField(max_length=100)
-
+    total_matches=models.IntegerField(default=0)
+    total_runs=models.IntegerField(default=0)
+    hundreds=models.IntegerField(default=0)
+    half_centuries=models.IntegerField(default=0)
+    highest_score=models.IntegerField(default=0)
 
     def __str__(self):
         return self.player_fname
