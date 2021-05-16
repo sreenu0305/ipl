@@ -27,16 +27,30 @@ def save_player(request):
         if form_obj.is_valid():
             form_obj.save()
 
-            return render(request, 'teams/addplayer.html', {'form': PlayersForm(), 'error': form_obj.errors})
+            return HttpResponseRedirect('/teams/')
 
     return HttpResponseRedirect('/teams/')
 
 
-def team_players(request,id):
+def team_players(request, id):
     import pdb
     # pdb.set_trace()
-    list=Players.objects.filter(team__id=id)
-    # cursor=connection.cursor()
-    # cursor.execute('''select * from teams_players where team_name =(select team_name from team_team where id={})'''.format(id))
-    # list=cursor.fetchall()
-    return render(request,'teams/playerlist.html',{'list':list})
+    # list1 = Players.objects.filter(team__id=id)
+    cursor=connection.cursor()
+    cursor.execute(f''' select *
+from teams_team
+join teams_players
+on teams_team.id = teams_players.team_id
+where teams_team.id = {id}''')
+    list1=cursor.fetchall()
+    return render(request, 'teams/playerlist.html', {'list': list1})
+
+
+def player_info(reequest,id):
+    import pdb
+    # pdb.set_trace()
+    # cursor = connection.cursor()
+    # cursor.execute('''select * from teams_players where id={}'''.format(id))
+    # player = cursor.fetchone()
+    player=Players.objects.get(id=id)
+    return render(reequest,'teams/playerinfo.html',{'player':player})

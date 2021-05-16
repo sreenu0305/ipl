@@ -20,9 +20,10 @@
     {% for team in teams %}
 
     <tr>
-        <td><img src="{{ team.2 }}" height="50" width="50"></td>
+        <td><img src="{{team.2.url}}" height="50" width="50"></td>
         <td><a href="/teams/{{team.0}}/team_players/">{{team.1}}</a></td>
         <td>{{team.3}}</td>
+        <br>
     </tr>
 {% endfor %}
     </tbody>

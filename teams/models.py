@@ -11,10 +11,10 @@ class Team(models.Model):
 
 
 class Players(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
     player_fname = models.CharField(max_length=100)
     player_lname = models.CharField(max_length=100)
-    player_image = models.ImageField(upload_to='media1/')
+    player_image = models.ImageField(upload_to='media/')
     jersey_number = models.IntegerField(null=False,blank=False)
     player_country = models.CharField(max_length=100)
     total_matches=models.IntegerField(default=0)
@@ -22,6 +22,9 @@ class Players(models.Model):
     hundreds=models.IntegerField(default=0)
     half_centuries=models.IntegerField(default=0)
     highest_score=models.IntegerField(default=0)
+    total_wickets=models.IntegerField(default=0)
+    highest_wickets=models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.player_fname

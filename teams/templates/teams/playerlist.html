@@ -1,5 +1,12 @@
+{%for each in list %}
+<a href="/teams/{{each.4}}/player_info/">{{each.5}}</a><br>
 
 <!--{% for each in list %}-->
-<!--{{each.1}}<br>-->
+<!--<a href="/teams/{{each.id}}/player_info/">{{each.player_fname}}</a><br>-->
 <!--{% endfor %}-->
-{{list.1}}
+<!--&lt;!&ndash;{{list.0}}&ndash;&gt;-->
+<!--<br>-->
+
+
+{% endfor %}
+<a href="/teams/">back</a>
