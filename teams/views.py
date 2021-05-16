@@ -33,7 +33,10 @@ def save_player(request):
 
 
 def team_players(request,id):
-    cursor=connection.cursor()
-    cursor.execute('''select * from teams_players where team_name =(select team_name from team_team where id={})'''.format(id))
-    list=cursor.fetchall()
+    import pdb
+    # pdb.set_trace()
+    list=Players.objects.filter(team__id=id)
+    # cursor=connection.cursor()
+    # cursor.execute('''select * from teams_players where team_name =(select team_name from team_team where id={})'''.format(id))
+    # list=cursor.fetchall()
     return render(request,'teams/playerlist.html',{'list':list})
