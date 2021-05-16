@@ -11,7 +11,7 @@ class Team(models.Model):
 
 
 class Players(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
     player_fname = models.CharField(max_length=100)
     player_lname = models.CharField(max_length=100)
     player_image = models.ImageField(upload_to='media/')
@@ -29,3 +29,12 @@ class Players(models.Model):
     def __str__(self):
         return self.player_fname
 
+
+class Match(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    team1 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_one')
+    team2 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_two')
+    team1_score = models.IntegerField(max_length=50, null=True, blank=True)
+    team2_score = models.IntegerField(max_length=50, null=True, blank=True)
+    result = models.CharField(max_length=50, null=True, blank=True)
