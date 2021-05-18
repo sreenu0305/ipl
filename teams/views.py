@@ -1,9 +1,11 @@
+import random
+
 from django.db import connection
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .forms import PlayersForm
-from .models import Players
+from .models import Players, Team, Matches, Points
 
 
 def teams_list(request):
@@ -60,3 +62,26 @@ def player_info(reequest,id):
     # player = cursor.fetchone()
     player=Players.objects.get(id=id)
     return render(reequest,'teams/playerinfo.html',{'player':player})
+
+
+def matches(request):
+    teams = Team.objects.all()
+    team1 = random.choice(teams)
+    ex = teams.exclude(team_name=team1.team_name)
+    team2 = random.choice(ex)
+    winner = random.choice((team1, team2))
+    win_tm, flag = Points.objects.get_or_create(team=winner)
+    win_tm.played += 1
+    win_tm.won += 1
+    win_tm.points += 2
+    win_tm.save()
+    if team1.team_name == win_tm.team.team_name:
+        l_team = team2
+    else:
+        l_team = team1
+    loss_tm, flag = Points.objects.get_or_create(team=l_team)
+    loss_tm.played += 1
+    loss_tm.lost += 1
+    loss_tm.points += 0
+    loss_tm.save()
+    return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams})
