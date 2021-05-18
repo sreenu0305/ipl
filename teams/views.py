@@ -85,3 +85,8 @@ def matches(request):
     loss_tm.points += 0
     loss_tm.save()
     return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams})
+
+
+def points(request):
+    point=Points.objects.all
+    return render(request,'teams/points.html',{'point':point})
