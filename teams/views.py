@@ -88,13 +88,18 @@ def matches(request):
     loss_tm.lost += 1
     loss_tm.points += 0
     loss_tm.save()
-    match=Match.objects.all
+
     # Match.objects.create(team1=request.GET['team1'],team2=request.GET['team2'],result=request.GET['winner'])
     # cursor=connection.cursor()
     # cursor.execute('''insert into teams_match values("team1","team2","winner")''')
-    return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams,"match":match})
+    return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams})
 
 
 def points(request):
     point=Points.objects.all
     return render(request,'teams/points.html',{'point':point})
+
+
+def match_hstory(request):
+    match = Match.objects.all
+    return render(request,'teams/history.html',{"match":match})
