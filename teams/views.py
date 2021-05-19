@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .forms import PlayersForm
-from .models import Players, Team, Matches, Points
+from .models import Players, Team, Match, Points
 
 
 def teams_list(request):
@@ -65,12 +65,16 @@ def player_info(reequest,id):
 
 
 def matches(request):
+    # Matches.objects.create(team_one=request.POST['team1'],team_two=request.POST['team2'],results=request.POST['winner'])
     teams = Team.objects.all()
     team1 = random.choice(teams)
     ex = teams.exclude(team_name=team1.team_name)
     team2 = random.choice(ex)
     winner = random.choice((team1, team2))
+     # Matches.objects.create(team1='team1',team2='team2',result='winner')
+
     win_tm, flag = Points.objects.get_or_create(team=winner)
+    Match.objects.create(team1=team1,team2=team2,result=winner)
     win_tm.played += 1
     win_tm.won += 1
     win_tm.points += 2
@@ -84,7 +88,11 @@ def matches(request):
     loss_tm.lost += 1
     loss_tm.points += 0
     loss_tm.save()
-    return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams})
+    match=Match.objects.all
+    # Match.objects.create(team1=request.GET['team1'],team2=request.GET['team2'],result=request.GET['winner'])
+    # cursor=connection.cursor()
+    # cursor.execute('''insert into teams_match values("team1","team2","winner")''')
+    return render(request, "teams/points_table.html", {"win": win_tm, "loss": loss_tm,"teams": teams,"match":match})
 
 
 def points(request):

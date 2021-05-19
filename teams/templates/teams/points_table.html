@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-th,td{
-  text-align: center;
-   }
-    </style>
-</head>
-<body>
+
 {{win}} vs {{loss}}<br>
 winner==>> {{win}}<br>
 <a href="/teams/">back</a>
+
+
+<table border="2" align="top">
+    <thead>
+    <tr>
+        <th>team1</th>
+        <th>team2</th>
+        <th>winner</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for each in match %}
+
+    <tr>
+        <td>{{each.team1}}</td>
+        <td>{{each.team2}}</td>
+        <td>{{each.result}}</td>
+        <br>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+
