@@ -1,5 +1,9 @@
+{% if form %}
+
+
 <form action="/teams/save_player/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
 
 <!--    first Name<input type="text" name="player_fname"><br>-->
 <!--    last Name<input type="text" name="player_lname"><br>-->
@@ -17,7 +21,9 @@
 <!--    hundreds<input type="number" name="hundreds"><br>-->
 <!--    half_centuries<input type="number" name="half_centuries"><br>-->
 <!--    highest_score<input type="number" name="highest_score"><br>-->
+
     {{form.as_p}}
     <input type="submit" value="submit">
 
 </form>
+{% endif %}
